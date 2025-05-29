@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "626476538326",
+    "firebase_url": "https://pethealthapp-ba7fe-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "pethealthapp-ba7fe",
+    "storage_bucket": "pethealthapp-ba7fe.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626476538326:android:3754d63ff8ce3aaf426c77",
+        "android_client_info": {
+          "package_name": "utar.edu.my.fyp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0uOOudJkC4E_j05TsC4iqcc1wU3nSXa4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

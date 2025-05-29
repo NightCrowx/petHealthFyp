@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bluelight">
+
+    <!-- Pet Image -->
+    <ImageView
+        android:id="@+id/img_pet"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="300dp"/>
+
+    <!-- No Pet Text -->
+    <TextView
+        android:id="@+id/tv_no_pet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No pet added"
+        android:textSize="22sp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:layout_below="@id/img_pet"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Instruction Text -->
+    <TextView
+        android:id="@+id/tv_add_pet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add a pet to start"
+        android:textSize="16sp"
+        android:textColor="@android:color/white"
+        android:layout_below="@id/tv_no_pet"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Add Pet Button -->
+    <Button
+        android:id="@+id/add_pet"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/roundedbtn"
+        android:text="+"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"/>
+
+</RelativeLayout>

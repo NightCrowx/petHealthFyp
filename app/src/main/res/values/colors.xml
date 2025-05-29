@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="blue">#03A9F4</color>
+    <color name="pink">#CC71DC</color>
+    <color name="bluelight">#C4DBF6</color>
+    <color name="purple">#9E68FF</color>
+    <color name="status_open">#4CAF50</color>
+    <color name="status_closed">#F44336</color>
+</resources>
+

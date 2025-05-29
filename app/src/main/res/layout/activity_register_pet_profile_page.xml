@@ -1,0 +1,158 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="@color/white"
+    tools:context=".RegisterPetProfilePage">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- App Name -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text=" Pet Profile"
+            android:gravity="center"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Pet Image -->
+        <ImageView
+            android:id="@+id/img_pet"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/placeholder"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:background="@android:color/darker_gray" />
+
+        <!-- Upload Image Button -->
+        <Button
+            android:id="@+id/btn_upload_pet_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Pet Image"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp" />
+
+        <!-- Pet Name -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/pet_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Pet Name"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/pet_birthdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select Pet Birthdate"
+                android:focusable="false"
+                android:clickable="true"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Pet Type Dropdown -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dropdown_pet_type_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:endIconMode="dropdown_menu">
+
+            <AutoCompleteTextView
+                android:id="@+id/pet_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select Pet Type"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Pet Gender Dropdown -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dropdown_pet_gender_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:endIconMode="dropdown_menu">
+
+            <AutoCompleteTextView
+                android:id="@+id/pet_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select Pet Gender"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <!-- Pet Breed -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/pet_breed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Pet Breed"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <!-- Pet Weight -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/pet_weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Pet Weight (kg)"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Save Pet Button -->
+        <Button
+            android:id="@+id/save_pet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save Pet Profile"
+            android:textStyle="bold"
+            android:background="@drawable/roundedbtn"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+</ScrollView>

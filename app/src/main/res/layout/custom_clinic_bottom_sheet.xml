@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/imageSlider"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView android:id="@+id/clinicName" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Clinic Name" android:textStyle="bold" android:textSize="18sp" android:textColor="#000"
+            android:layout_marginTop="8dp" />
+
+        <TextView android:id="@+id/clinicRating" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="⭐ 4.5 (100 reviews)" android:textColor="#444" android:textSize="14sp" />
+
+        <TextView android:id="@+id/clinicStatus" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Open now" android:textColor="#4CAF50" android:textSize="14sp" />
+
+        <TextView android:id="@+id/clinicAddress" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="123 Clinic Street" android:textColor="#666" android:textSize="14sp" />
+
+        <TextView android:id="@+id/clinicDistance" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="1.2 km away" android:textColor="#444" android:textSize="14sp" />
+
+        <Button android:id="@+id/navigateButton" android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Navigate" android:layout_marginTop="12dp" android:backgroundTint="#4285F4"
+            android:textColor="#FFF" />
+    </LinearLayout>
+</ScrollView>
