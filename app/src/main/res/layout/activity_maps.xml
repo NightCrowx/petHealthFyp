@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -16,64 +17,307 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <!-- Button to open drawer -->
-        <ImageButton
-            android:id="@+id/openDrawerBtn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+        <!-- Enhanced floating button with PawLife theme -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:background="@android:color/transparent"
-            android:src="@android:drawable/ic_menu_sort_by_size"
-            android:contentDescription="Open Drawer" />
+            app:cardCornerRadius="25dp"
+            app:cardElevation="8dp"
+            android:backgroundTint="#07375E">
+
+            <ImageButton
+                android:id="@+id/openDrawerBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:src="@android:drawable/ic_menu_sort_by_size"
+                android:contentDescription="Open Drawer"
+                app:tint="@android:color/white" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- NEW: Close/Back button (top right) -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="8dp"
+            android:backgroundTint="#07375E">
+
+            <ImageButton
+                android:id="@+id/closeMapBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                android:contentDescription="Close Map"
+                app:tint="@android:color/white" />
+        </androidx.cardview.widget.CardView>
     </RelativeLayout>
 
-    <!-- Drawer content -->
-    <LinearLayout
-        android:layout_width="280dp"
+    <!-- Enhanced Drawer content with PawLife gradient background -->
+    <ScrollView
+        android:layout_width="320dp"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_gravity="start"
-        android:background="#ffffff"
-        android:padding="16dp">
+        android:background="@drawable/drawer_gradient_background"
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/nearbyTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nearby Vet Clinics"
-            android:textSize="18sp"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:paddingBottom="8dp" />
-
-        <ListView
-            android:id="@+id/nearbyClinicListView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:divider="#ccc"
-            android:dividerHeight="1dp"/>
-
-        <TextView
-            android:id="@+id/otherTitle"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Other Suggested Clinics"
-            android:textSize="18sp"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:paddingTop="16dp"
-            android:paddingBottom="8dp" />
+            android:orientation="vertical"
+            android:padding="0dp">
 
-        <ListView
-            android:id="@+id/otherClinicListView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:divider="#ccc"
-            android:dividerHeight="1dp"/>
-    </LinearLayout>
+            <!-- Header Section with PawLife branding -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/header_gradient"
+                android:padding="20dp"
+                android:paddingBottom="24dp">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🐾 PawLife Vet Finder"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Find the best veterinary care for your pets"
+                    android:textSize="14sp"
+                    android:textColor="#E3F2FD"
+                    android:alpha="0.9" />
+            </LinearLayout>
+
+            <!-- Search Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:background="@android:color/white">
+
+                <!-- Enhanced Search Bar with PawLife styling -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="25dp"
+                    app:cardElevation="4dp"
+                    android:backgroundTint="#F3F8FF">
+
+                    <SearchView
+                        android:id="@+id/searchClinicView"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:queryHint="🔍 Search clinic name..."
+                        android:background="@android:color/transparent"
+                        android:iconifiedByDefault="false" />
+                </androidx.cardview.widget.CardView>
+
+                <!-- Enhanced Filter Card with PawLife colors -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/filterCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="6dp"
+                    android:backgroundTint="#FFFFFF">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Filter Header with PawLife accent -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="12dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="🔧 Filters"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="#2E5A8A" />
+
+                            <View
+                                android:layout_width="30dp"
+                                android:layout_height="2dp"
+                                android:background="@drawable/filter_accent_line" />
+                        </LinearLayout>
+
+                        <!-- Compact Filter Controls -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <!-- Distance Filter Row -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="8dp">
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="📍 Distance"
+                                    android:textSize="14sp"
+                                    android:textColor="#3E7CB8"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/spinnerDistance"
+                                    android:layout_width="0dp"
+                                    android:layout_height="40dp"
+                                    android:layout_weight="1"
+                                    android:layout_marginStart="8dp"
+                                    android:background="@drawable/spinner_background" />
+                            </LinearLayout>
+
+                            <!-- Status Filter Row -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="8dp">
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="🕒 Status"
+                                    android:textSize="14sp"
+                                    android:textColor="#5A87C7"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/spinnerStatus"
+                                    android:layout_width="0dp"
+                                    android:layout_height="40dp"
+                                    android:layout_weight="1"
+                                    android:layout_marginStart="8dp"
+                                    android:background="@drawable/spinner_background" />
+                            </LinearLayout>
+
+                            <!-- Rating Filter Row -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="⭐ Rating"
+                                    android:textSize="14sp"
+                                    android:textColor="#4A79B3"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/spinnerRating"
+                                    android:layout_width="0dp"
+                                    android:layout_height="40dp"
+                                    android:layout_weight="1"
+                                    android:layout_marginStart="8dp"
+                                    android:background="@drawable/spinner_background" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Enhanced Clinic List Header with PawLife branding -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/section_header_background"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/clinicListTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="🏥 Veterinary Clinics"
+                        android:textSize="18sp"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nearby"
+                        android:textSize="12sp"
+                        android:textColor="#E3F2FD"
+                        android:background="@drawable/badge_background"
+                        android:padding="4dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Enhanced Clinic List -->
+            <ListView
+                android:id="@+id/clinicListView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:divider="@drawable/list_divider"
+                android:dividerHeight="1dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="16dp"
+                android:clipToPadding="false"
+                android:scrollbarStyle="outsideOverlay" />
+
+            <!-- Footer with PawLife branding -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/footer_gradient"
+                android:padding="16dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="💙 PawLife - Caring for your pets"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="italic"
+                    android:alpha="0.8" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
 </androidx.drawerlayout.widget.DrawerLayout>

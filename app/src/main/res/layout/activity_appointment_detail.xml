@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FDF5E6">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header with Pet Image -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            android:backgroundTint="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <!-- Pet Information (Left Side) -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Appointment Details"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#8D6E63"
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:id="@+id/textViewPetName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pet Name"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#5D4037" />
+
+
+
+                </LinearLayout>
+
+                <!-- Pet Image (Right Side) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    app:cardCornerRadius="40dp"
+                    app:cardElevation="2dp"
+                    android:backgroundTint="#F5F5F5">
+
+                    <ImageView
+                        android:id="@+id/imageViewPet"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_pet_default"
+                        android:contentDescription="Pet Image" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Appointment Information -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            android:backgroundTint="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Title -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Title"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#8D6E63"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/textViewAppointmentTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Appointment Title"
+                    android:textSize="16sp"
+                    android:textColor="#5D4037"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Description -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#8D6E63"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/textViewAppointmentDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description"
+                    android:textSize="16sp"
+                    android:textColor="#5D4037"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Date -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#8D6E63"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/textViewAppointmentDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="01/01/2024"
+                    android:textSize="16sp"
+                    android:textColor="#5D4037"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Time -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Time"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#8D6E63"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/textViewAppointmentTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="09:00"
+                    android:textSize="16sp"
+                    android:textColor="#5D4037"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Location -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#8D6E63"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/textViewAppointmentLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location"
+                    android:textSize="16sp"
+                    android:textColor="#5D4037"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Reminder -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reminder"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#8D6E63"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/textViewReminderTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="60 minutes before"
+                    android:textSize="16sp"
+                    android:textColor="#5D4037" />
+
+
+            </LinearLayout>
+
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnMarkAsCompleted"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Mark as Completed"
+            android:backgroundTint="@color/blue_info"
+            android:textColor="@android:color/white"
+            style="@style/Widget.MaterialComponents.Button" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnClose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Close"
+            android:backgroundTint="#F44336"
+            android:textColor="@android:color/white"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+    </LinearLayout>
+
+</ScrollView>

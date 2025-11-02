@@ -1,0 +1,28 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Main pad -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12,18c-1.5,0 -2.7,-1.2 -2.7,-2.7c0,-1.5 1.2,-2.7 2.7,-2.7s2.7,1.2 2.7,2.7C14.7,16.8 13.5,18 12,18z"/>
+
+    <!-- Toe pads -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M8.5,14c-0.8,0 -1.5,-0.7 -1.5,-1.5s0.7,-1.5 1.5,-1.5s1.5,0.7 1.5,1.5S9.3,14 8.5,14z"/>
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M15.5,14c-0.8,0 -1.5,-0.7 -1.5,-1.5s0.7,-1.5 1.5,-1.5s1.5,0.7 1.5,1.5S16.3,14 15.5,14z"/>
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M10,9.5C10,8.7 9.3,8 8.5,8S7,8.7 7,9.5S7.7,11 8.5,11S10,10.3 10,9.5z"/>
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M17,9.5C17,8.7 16.3,8 15.5,8S14,8.7 14,9.5S14.7,11 15.5,11S17,10.3 17,9.5z"/>
+</vector>

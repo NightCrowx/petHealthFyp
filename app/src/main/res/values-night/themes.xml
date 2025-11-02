@@ -5,5 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
 
         <item name="colorPrimary">@color/blue</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorOnSurfaceVariant">@color/text_secondary</item>
     </style>
 </resources>

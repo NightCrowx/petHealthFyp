@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:padding="24dp"
+    android:fillViewport="true"
+    tools:context=".petschedule.ui.AddPetActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/card_background"
+        android:padding="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:elevation="8dp"
+        android:translationZ="8dp">
+
+        <!-- App Logo and Page Title -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🐕"
+                android:textSize="32sp"
+                android:layout_marginBottom="8dp"
+                android:scaleX="1.2"
+                android:scaleY="1.2"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PawLife"
+                android:textStyle="bold"
+                android:textSize="36sp"
+                android:textColor="@color/primary_blue"
+                android:gravity="center"
+                android:letterSpacing="0.05"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pet"
+                android:textSize="18sp"
+                android:textColor="@color/text_secondary"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:alpha="0.8"/>
+        </LinearLayout>
+
+        <!-- Enhanced Pet Image Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="32dp">
+
+            <FrameLayout
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/imageViewPet"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/avatar_background_gradient"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_pet_default"
+                    android:clipToOutline="true"
+                    android:elevation="4dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Pet Image"/>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tap to add photo"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginTop="16dp"
+                android:alpha="0.8"/>
+        </LinearLayout>
+
+        <!-- Enhanced Form Fields -->
+        <!-- Pet Name Field -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            style="@style/CustomTextInputLayout"
+            app:boxStrokeColor="@color/primary_blue"
+            app:hintTextColor="@color/primary_blue"
+            app:startIconDrawable="@drawable/ic_pet"
+            app:startIconTint="@color/primary_blue"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextPetName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Pet Name"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                android:textColor="@color/text_primary"
+                android:padding="16dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Pet Type Dropdown -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/CustomTextInputLayout.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:boxStrokeColor="@color/primary_blue"
+            app:hintTextColor="@color/primary_blue"
+            app:startIconDrawable="@drawable/ic_pet"
+            app:startIconTint="@color/primary_blue"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/autoCompletePetType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Pet Type"
+                android:clickable="true"
+                android:focusable="false"
+                android:inputType="none"
+                android:textSize="16sp"
+                android:textColor="@color/text_primary"
+                android:padding="16dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Breed Field -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            style="@style/CustomTextInputLayout"
+            app:boxStrokeColor="@color/primary_blue"
+            app:hintTextColor="@color/primary_blue"
+            app:startIconTint="@color/primary_blue"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextBreed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Breed"
+                android:inputType="text"
+                android:textSize="16sp"
+                android:textColor="@color/text_primary"
+                android:padding="16dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Gender Dropdown -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/CustomTextInputLayout.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:boxStrokeColor="@color/primary_blue"
+            app:hintTextColor="@color/primary_blue"
+            app:startIconTint="@color/primary_blue"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/autoCompleteGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Gender"
+                android:clickable="true"
+                android:focusable="false"
+                android:inputType="none"
+                android:textSize="16sp"
+                android:textColor="@color/text_primary"
+                android:padding="16dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Date of Birth Field -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            style="@style/CustomTextInputLayout"
+            app:boxStrokeColor="@color/primary_blue"
+            app:hintTextColor="@color/primary_blue"
+            app:startIconDrawable="@drawable/ic_calendar_small"
+            app:startIconTint="@color/primary_blue"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextDateOfBirth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Date of Birth"
+                android:clickable="true"
+                android:focusable="false"
+                android:inputType="none"
+                android:textSize="16sp"
+                android:textColor="@color/text_primary"
+                android:padding="16dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            style="@style/CustomTextInputLayout"
+            app:boxStrokeColor="@color/primary_blue"
+            app:hintTextColor="@color/primary_blue"
+            app:startIconTint="@color/primary_blue"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <!-- Enhanced Save Pet Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSavePet"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Save Pet"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/gradient_button"
+            app:cornerRadius="28dp"
+            android:layout_marginBottom="24dp"
+            android:elevation="4dp"
+            app:rippleColor="@color/white_transparent"
+            android:stateListAnimator="@animator/button_elevation"/>
+
+        <!-- Progress Bar (Hidden by default) -->
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:indicatorColor="@color/primary_blue"
+            app:trackColor="@color/primary_blue_light"
+            app:trackCornerRadius="4dp" />
+
+    </LinearLayout>
+</ScrollView>

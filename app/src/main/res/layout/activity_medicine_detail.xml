@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FDF5E6">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header with Pet Image -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            android:backgroundTint="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <!-- Pet Information (Left Side) -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Medicine Details"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#8D6E63"
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:id="@+id/textViewPetName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pet Name"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#5D4037" />
+
+                </LinearLayout>
+
+                <!-- Pet Image (Right Side) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    app:cardCornerRadius="40dp"
+                    app:cardElevation="2dp"
+                    android:backgroundTint="#F5F5F5">
+
+                    <ImageView
+                        android:id="@+id/imageViewPet"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_pet_default"
+                        android:contentDescription="Pet Image" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Medicine Information -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            android:backgroundTint="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Medicine Name -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medicine Name"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#8D6E63"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/textViewMedicineName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medicine Name"
+                    android:textSize="16sp"
+                    android:textColor="#5D4037"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Dosage -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dosage"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#8D6E63"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/textViewDosage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1 tablet"
+                    android:textSize="16sp"
+                    android:textColor="#5D4037"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Frequency -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Frequency"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#8D6E63"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/textViewFrequency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Daily"
+                    android:textSize="16sp"
+                    android:textColor="#5D4037"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Time -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Time"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#8D6E63"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/textViewTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="09:00"
+                    android:textSize="16sp"
+                    android:textColor="#5D4037"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Start Date -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start Date"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#8D6E63"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/textViewStartDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="01/01/2024"
+                    android:textSize="16sp"
+                    android:textColor="#5D4037"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- End Date -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="End Date"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#8D6E63"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/textViewEndDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="31/01/2024"
+                    android:textSize="16sp"
+                    android:textColor="#5D4037"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Status -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#8D6E63"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/textViewStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Active"
+                    android:textSize="16sp"
+                    android:textColor="#5D4037"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Notes -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Notes"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#8D6E63"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/textViewNotes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Notes"
+                    android:textSize="16sp"
+                    android:textColor="#5D4037" />
+
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Close Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonClose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#F44336"
+            android:text="Close"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:cornerRadius="8dp"
+            app:icon="@android:drawable/ic_menu_close_clear_cancel"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            app:iconTint="#FFFFFF" />
+
+
+    </LinearLayout>
+
+</ScrollView>

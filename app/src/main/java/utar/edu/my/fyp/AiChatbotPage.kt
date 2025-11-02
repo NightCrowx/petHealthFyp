@@ -8,6 +8,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,14 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import utar.edu.my.fyp.petschedule.adapters.UserSessionManager
+import androidx.cardview.widget.CardView
 
 class AiChatbotPage : AppCompatActivity() {
 
@@ -30,16 +39,29 @@ class AiChatbotPage : AppCompatActivity() {
     private lateinit var imageButton: ImageButton
     private lateinit var attachedImagePreview: ImageView
     private lateinit var loadingIndicator: ProgressBar
+    private lateinit var loadingCard: CardView
+    private lateinit var auth: FirebaseAuth
+    private lateinit var closeChatBtn: ImageButton
+
+    // Quick education buttons
+    private lateinit var quickEducationContainer: HorizontalScrollView
 
     private var base64Image: String? = null
     private var selectedBitmap: Bitmap? = null
+    private var userAvatarUrl: String? = null // Store user avatar URL
     private val IMAGE_PICK_CODE = 1001
     private val CAMERA_CODE = 1002
 
+    companion object {
+        private const val TAG = "AiChatbotPage"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ai_chatbot_page)
+
+        // Initialize Firebase Auth
+        auth = FirebaseAuth.getInstance()
 
         messageContainer = findViewById(R.id.messageContainer)
         userInput = findViewById(R.id.userInput)
@@ -47,19 +69,27 @@ class AiChatbotPage : AppCompatActivity() {
         scrollView = findViewById(R.id.scrollView)
         imageButton = findViewById(R.id.imageSelectBtn)
         loadingIndicator = findViewById(R.id.loadingIndicator)
+        loadingCard = findViewById(R.id.loadingCard)
         attachedImagePreview = findViewById(R.id.attachedImagePreview)
+        quickEducationContainer = findViewById(R.id.quickEducationContainer)
+        closeChatBtn = findViewById(R.id.closeChatBtn)
 
-        addMessageBubble("👋 Hello! I'm Doctor Edu. How can I help you?", isUser = false,null)
+        // Setup quick education buttons
+        setupQuickEducationButtons()
+
+        // Load user avatar when activity starts
+        loadUserAvatar()
+
+        addMessageBubble("Hello! I'm Doctor Paw, your PawLife AI assistant. How can I help you and your pet today?", isUser = false, null)
 
         val removeImageBtn = findViewById<ImageButton>(R.id.removeImageBtn)
-        val imagePreviewContainer = findViewById<FrameLayout>(R.id.imagePreviewContainer)
+        val imagePreviewContainer = findViewById<CardView>(R.id.imagePreviewContainer)
 
         removeImageBtn.setOnClickListener {
             selectedBitmap = null
             attachedImagePreview.setImageBitmap(null)
             imagePreviewContainer.visibility = View.GONE
         }
-
 
         sendBtn.setOnClickListener {
             val message = userInput.text.toString().trim()
@@ -70,7 +100,7 @@ class AiChatbotPage : AppCompatActivity() {
                 selectedBitmap = null
                 base64Image = null
                 attachedImagePreview.setImageBitmap(null)
-                findViewById<FrameLayout>(R.id.imagePreviewContainer).visibility = View.GONE
+                findViewById<CardView>(R.id.imagePreviewContainer).visibility = View.GONE
             }
         }
 
@@ -91,14 +121,110 @@ class AiChatbotPage : AppCompatActivity() {
         ) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), 100)
         }
+
+        closeChatBtn.setOnClickListener {
+           navigateBackToDashboard()
+        }
+    }
+
+    private fun setupQuickEducationButtons() {
+        val buttonContainer = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            setPadding(16, 8, 16, 8)
+        }
+
+        val educationTopics = arrayOf(
+            "🐕 Dog Training Tips",
+            "🐱 Cat Behaviour",
+            "🦴 Pet Nutrition",
+            "🏥 Emergency Care",
+            "✂️ Grooming Guide",
+            "🎾 Exercise Needs",
+            "🧠 Mental Stimulation",
+            "👶 Puppy Care",
+            "👴 Senior Pet Care"
+        )
+
+        educationTopics.forEach { topic ->
+            val button = Button(this).apply {
+                text = topic
+                textSize = 12f
+                setPadding(24, 12, 24, 12)
+                setTextColor(ContextCompat.getColor(context, android.R.color.white))
+                background = ContextCompat.getDrawable(context, R.drawable.quick_education_button_bg)
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    setMargins(8, 0, 8, 0)
+                }
+
+                setOnClickListener {
+                    val educationQuestion = when (topic) {
+                        "🐕 Dog Training Tips" -> "Can you give me some effective dog training tips for beginners?"
+                        "🐱 Cat Behaviour" -> "Help me understand common cat behaviours and what they mean."
+                        "🦴 Pet Nutrition" -> "What should I know about proper nutrition for my pet?"
+                        "🏥 Emergency Care" -> "What are the signs of pet emergencies I should watch for?"
+                        "✂️ Grooming Guide" -> "How often should I groom my pet and what's the best way to do it?"
+                        "🎾 Exercise Needs" -> "How much exercise does my pet need daily?"
+                        "🧠 Mental Stimulation" -> "What are good ways to provide mental stimulation for pets?"
+                        "👶 Puppy Care" -> "What are the essential things to know about puppy care?"
+                        "👴 Senior Pet Care" -> "How should I care for my senior pet's changing needs?"
+                        else -> topic
+                    }
+
+                    // Set the question in the input field and automatically send it
+                    userInput.setText(educationQuestion)
+                    // Automatically send the question
+                    addMessageBubble(educationQuestion, isUser = true, image = null)
+                    callChatGPTWithImage(educationQuestion)
+                    userInput.text.clear()
+                }
+            }
+            buttonContainer.addView(button)
+        }
+
+        quickEducationContainer.addView(buttonContainer)
+    }
+
+    private fun loadUserAvatar() {
+        val userId = UserSessionManager.getCurrentUserId(this)
+        if (userId != null) {
+            // First, get data from Firebase Auth (for Google Sign-In users)
+            val currentUser = auth.currentUser
+            val googlePhotoUrl = currentUser?.photoUrl?.toString()
+
+            val dbRef = FirebaseDatabase.getInstance().getReference("user").child(userId)
+            dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        val avatarUrl = snapshot.child("avatarUrl").getValue(String::class.java)
+
+                        // Determine which photo to use - prefer database, fallback to Google
+                        userAvatarUrl = if (!avatarUrl.isNullOrEmpty()) {
+                            avatarUrl
+                        } else {
+                            googlePhotoUrl
+                        }
+                    } else {
+                        // If no database record exists, use Google Sign-In data
+                        userAvatarUrl = googlePhotoUrl
+                    }
+
+                    Log.d(TAG, "User avatar URL loaded: $userAvatarUrl")
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e(TAG, "Failed to load user avatar: ${error.message}")
+                    // Fallback to Google Sign-In data on database error
+                    userAvatarUrl = googlePhotoUrl
+                }
+            })
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
-        attachedImagePreview.setImageBitmap(selectedBitmap)
-        attachedImagePreview.visibility = View.VISIBLE
-        findViewById<FrameLayout>(R.id.imagePreviewContainer).visibility = View.VISIBLE
 
         if (resultCode == Activity.RESULT_OK) {
             selectedBitmap = when (requestCode) {
@@ -112,52 +238,111 @@ class AiChatbotPage : AppCompatActivity() {
             selectedBitmap?.let {
                 base64Image = encodeImageToBase64(it)
                 attachedImagePreview.setImageBitmap(it)
-                findViewById<FrameLayout>(R.id.imagePreviewContainer).visibility = View.VISIBLE
+                findViewById<CardView>(R.id.imagePreviewContainer).visibility = View.VISIBLE
             }
         }
     }
 
 
+
     private fun addMessageBubble(text: String, isUser: Boolean, image: Bitmap?) {
         val verticalLayout = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(0, 12, 0, 12)
+            setPadding(0, 16, 0, 16)
         }
 
-        val horizontalLayout = LinearLayout(this).apply {
-            orientation = LinearLayout.HORIZONTAL
-        }
-
-        val icon = ImageView(this).apply {
-            setImageResource(if (isUser) R.drawable.icuser else R.drawable.icvet)
-            layoutParams = LinearLayout.LayoutParams(80, 80)
-        }
-
-        val textView = TextView(this).apply {
-            this.text = text
-            setBackgroundResource(if (isUser) R.drawable.chatbubble else R.drawable.chatbubblebot)
-            setPadding(24, 16, 24, 16)
-            setTextColor(resources.getColor(android.R.color.black))
-            layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).apply {
-                setMargins(20, 0, 20, 0)
+        // Only create text bubble if there's actual text content
+        if (text.isNotEmpty()) {
+            val horizontalLayout = LinearLayout(this).apply {
+                orientation = LinearLayout.HORIZONTAL
+                gravity = if (isUser) android.view.Gravity.END else android.view.Gravity.START
             }
+
+            val icon = ImageView(this).apply {
+                layoutParams = LinearLayout.LayoutParams(80, 80).apply {
+                    setMargins(12, 0, 12, 0)
+                }
+                scaleType = ImageView.ScaleType.CENTER_CROP
+
+                if (isUser) {
+                    // Load user avatar or use default
+                    if (!userAvatarUrl.isNullOrEmpty()) {
+                        Glide.with(this@AiChatbotPage)
+                            .load(userAvatarUrl)
+                            .placeholder(R.drawable.icuser)
+                            .error(R.drawable.icuser)
+                            .circleCrop()
+                            .into(this)
+                    } else {
+                        setImageResource(R.drawable.icuser)
+                    }
+                } else {
+                    // Bot icon
+                    setImageResource(R.drawable.icvet)
+                }
+            }
+
+            val textView = TextView(this).apply {
+                this.text = text
+                setBackgroundResource(if (isUser) R.drawable.chatbubble_user_pawlife else R.drawable.chatbubble_bot_pawlife)
+                setPadding(24, 16, 24, 16)
+                setTextColor(resources.getColor(android.R.color.black))
+                textSize = 16f
+                layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).apply {
+                    setMargins(12, 0, 12, 0)
+                }
+            }
+
+            if (isUser) {
+                horizontalLayout.addView(textView)
+                horizontalLayout.addView(icon)
+            } else {
+                horizontalLayout.addView(icon)
+                horizontalLayout.addView(textView)
+            }
+
+            verticalLayout.addView(horizontalLayout)
         }
 
-
-        if (isUser) {
-            horizontalLayout.addView(textView)
-            horizontalLayout.addView(icon)
-        } else {
-            horizontalLayout.addView(icon)
-            horizontalLayout.addView(textView)
-        }
-
-        verticalLayout.addView(horizontalLayout)
-
-
+        // Add image if present
         image?.let {
             val imageLayout = LinearLayout(this).apply {
                 orientation = LinearLayout.HORIZONTAL
+                gravity = if (isUser) android.view.Gravity.END else android.view.Gravity.START
+                setPadding(0, if (text.isEmpty()) 0 else 8, 0, 0) // No top padding if no text above
+            }
+
+            // Add user icon for image-only messages
+            if (text.isEmpty()) {
+                val icon = ImageView(this).apply {
+                    layoutParams = LinearLayout.LayoutParams(80, 80).apply {
+                        setMargins(12, 0, 12, 0)
+                    }
+                    scaleType = ImageView.ScaleType.CENTER_CROP
+
+                    if (isUser) {
+                        if (!userAvatarUrl.isNullOrEmpty()) {
+                            Glide.with(this@AiChatbotPage)
+                                .load(userAvatarUrl)
+                                .placeholder(R.drawable.icuser)
+                                .error(R.drawable.icuser)
+                                .circleCrop()
+                                .into(this)
+                        } else {
+                            setImageResource(R.drawable.icuser)
+                        }
+                    } else {
+                        setImageResource(R.drawable.icvet)
+                    }
+                }
+
+                if (isUser) {
+                    // For user: image first, then icon
+                    // We'll add icon after image below
+                } else {
+                    // For bot: icon first, then image
+                    imageLayout.addView(icon)
+                }
             }
 
             val imageView = ImageView(this).apply {
@@ -165,18 +350,50 @@ class AiChatbotPage : AppCompatActivity() {
                 layoutParams = LinearLayout.LayoutParams(400, LinearLayout.LayoutParams.WRAP_CONTENT)
                 adjustViewBounds = true
                 setPadding(10, 10, 10, 10)
+                setBackgroundResource(R.drawable.chatbubble_bot_pawlife)
             }
 
             if (isUser) {
-
-                val spacer = Space(this).apply {
-                    layoutParams = LinearLayout.LayoutParams(0, 0, 1f)
+                if (text.isEmpty()) {
+                    // Image-only message: add image, then icon
+                    imageLayout.addView(imageView)
+                    val icon = ImageView(this).apply {
+                        layoutParams = LinearLayout.LayoutParams(80, 80).apply {
+                            setMargins(12, 0, 12, 0)
+                        }
+                        scaleType = ImageView.ScaleType.CENTER_CROP
+                        if (!userAvatarUrl.isNullOrEmpty()) {
+                            Glide.with(this@AiChatbotPage)
+                                .load(userAvatarUrl)
+                                .placeholder(R.drawable.icuser)
+                                .error(R.drawable.icuser)
+                                .circleCrop()
+                                .into(this)
+                        } else {
+                            setImageResource(R.drawable.icuser)
+                        }
+                    }
+                    imageLayout.addView(icon)
+                } else {
+                    // Message with text: align with existing text bubble
+                    val spacer = Space(this).apply {
+                        layoutParams = LinearLayout.LayoutParams(0, 0, 1f)
+                    }
+                    imageLayout.addView(spacer)
+                    imageLayout.addView(imageView)
                 }
-                imageLayout.addView(spacer)
-                imageLayout.addView(imageView)
             } else {
-
-                imageLayout.addView(imageView)
+                if (text.isEmpty()) {
+                    // Bot image-only message: icon already added above
+                    imageLayout.addView(imageView)
+                } else {
+                    // Bot message with text: align with existing text bubble
+                    val iconSpacer = Space(this).apply {
+                        layoutParams = LinearLayout.LayoutParams(104, 0) // 80dp + margins
+                    }
+                    imageLayout.addView(iconSpacer)
+                    imageLayout.addView(imageView)
+                }
             }
 
             verticalLayout.addView(imageLayout)
@@ -185,14 +402,16 @@ class AiChatbotPage : AppCompatActivity() {
         messageContainer.addView(verticalLayout)
         scrollView.post { scrollView.fullScroll(ScrollView.FOCUS_DOWN) }
 
-
-        if (!isUser) {
+        // Add translation option for bot messages (only if there's text)
+        if (!isUser && text.isNotEmpty()) {
             val translatePrompt = TextView(this).apply {
                 this.text = "🌐 Translate "
                 textSize = 14f
                 setTextColor(ContextCompat.getColor(context, android.R.color.holo_blue_dark))
-                setPadding(0, 10, 20, 0)
-                textAlignment = View.TEXT_ALIGNMENT_VIEW_END
+                setPadding(104, 10, 20, 0) // Align with bot message
+                textAlignment = View.TEXT_ALIGNMENT_VIEW_START
+                isClickable = true
+                isFocusable = true
             }
 
             translatePrompt.setOnClickListener {
@@ -213,10 +432,7 @@ class AiChatbotPage : AppCompatActivity() {
 
             verticalLayout.addView(translatePrompt)
         }
-
-
     }
-
 
     private fun encodeImageToBase64(bitmap: Bitmap): String {
         val stream = ByteArrayOutputStream()
@@ -225,13 +441,12 @@ class AiChatbotPage : AppCompatActivity() {
     }
 
     private fun callChatGPTWithImage(userMessage: String) {
-        loadingIndicator.visibility = View.VISIBLE
+        loadingCard.visibility = View.VISIBLE
 
-        val apiKey = "Bearer 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"
+        val apiKey = "API KEY"
         val apiUrl = "https://api.openai.com/v1/chat/completions"
 
         val contentArray = JSONArray()
-
 
         selectedBitmap?.let {
             if (base64Image == null) {
@@ -256,7 +471,24 @@ class AiChatbotPage : AppCompatActivity() {
         val messages = JSONArray().apply {
             put(JSONObject().apply {
                 put("role", "system")
-                put("content", "You are a helpful study assistant. Analyze image and user question.")
+                put("content", """You are Doctor Paw, a specialized veterinary AI assistant focused exclusively on pet education and care. 
+
+Your expertise covers:
+- Pet health, diseases, symptoms, and treatments
+- Pet behavior, training, and psychology  
+- Pet nutrition and diet recommendations
+- Pet grooming and hygiene
+- Pet care routines and wellness
+- Different pet species (dogs, cats, birds, rabbits, fish, reptiles, etc.)
+- Pet safety and emergency care
+- Pet products and accessories
+
+IMPORTANT RULES:
+1. ONLY answer questions related to pets, animals, and pet care
+2. If a user asks about anything unrelated to pets (human health, technology, general knowledge, etc.), politely redirect them by saying: "I'm Doctor Paw, your specialized pet care assistant. I can only help with questions about pets, animals, and pet care. Please ask me something about your furry, feathered, or scaly friends!"
+3. Always provide helpful, accurate pet care advice
+4. Recommend consulting with a real veterinarian for serious health concerns
+5. Be friendly and educational in your responses""")
             })
             put(JSONObject().apply {
                 put("role", "user")
@@ -278,7 +510,6 @@ class AiChatbotPage : AppCompatActivity() {
             .post(requestBody)
             .build()
 
-
         val client = OkHttpClient.Builder()
             .connectTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
             .writeTimeout(60, java.util.concurrent.TimeUnit.SECONDS)
@@ -288,8 +519,8 @@ class AiChatbotPage : AppCompatActivity() {
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 runOnUiThread {
-                    loadingIndicator.visibility = View.GONE
-                    addMessageBubble(" Error: ${e.message}", isUser = false, image = null)
+                    loadingCard.visibility = View.GONE
+                    addMessageBubble("Sorry, I'm having trouble connecting right now. Please try again later. Error: ${e.message}", isUser = false, image = null)
                 }
             }
 
@@ -299,7 +530,7 @@ class AiChatbotPage : AppCompatActivity() {
                     JSONObject(body ?: "").getJSONArray("choices")
                         .getJSONObject(0).getJSONObject("message").getString("content")
                 } catch (e: Exception) {
-                    "Error parsing response"
+                    "Sorry, I couldn't process that request properly. Please try again."
                 }
 
                 val cleanedReply = rawReply
@@ -308,26 +539,24 @@ class AiChatbotPage : AppCompatActivity() {
                     .replace("*", "")
                     .replace("\n", "\n\n")
                     .replace("\\*", "")
-                    .replace("^#{1,6}\\s*", "")
+                    .replace("^#{1,6}\\s*".toRegex(), "")
 
                 runOnUiThread {
-                    loadingIndicator.visibility = View.GONE
+                    loadingCard.visibility = View.GONE
                     addMessageBubble(cleanedReply, isUser = false, image = null)
-
-
                 }
             }
         })
     }
 
-    private fun translateTextWithGPT(prompt: String, originalText: String, container: LinearLayout,languageLabel: String) {
-        val apiKey = "Bearer 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"
+    private fun translateTextWithGPT(prompt: String, originalText: String, container: LinearLayout, languageLabel: String) {
+        val apiKey = "API KEY"
         val apiUrl = "https://api.openai.com/v1/chat/completions"
 
         val messages = JSONArray().apply {
             put(JSONObject().apply {
                 put("role", "system")
-                put("content", "You are a helpful assistant that translates answers.")
+                put("content", "You are a helpful assistant that translates veterinary and pet care advice accurately.")
             })
             put(JSONObject().apply {
                 put("role", "user")
@@ -350,12 +579,13 @@ class AiChatbotPage : AppCompatActivity() {
             .build()
 
         runOnUiThread {
-            loadingIndicator.visibility = View.VISIBLE
+            loadingCard.visibility = View.VISIBLE
         }
 
         OkHttpClient().newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 runOnUiThread {
+                    loadingCard.visibility = View.GONE
                     Toast.makeText(this@AiChatbotPage, "Translation failed: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -366,44 +596,45 @@ class AiChatbotPage : AppCompatActivity() {
                     JSONObject(responseText ?: "").getJSONArray("choices")
                         .getJSONObject(0).getJSONObject("message").getString("content")
                 } catch (e: Exception) {
-                    "Translation error."
+                    "Translation error occurred."
                 }
 
                 runOnUiThread {
-                    loadingIndicator.visibility = View.GONE
-                    val horizontalLayout = LinearLayout(this@AiChatbotPage).apply {
+                    loadingCard.visibility = View.GONE
+                    val translationLayout = LinearLayout(this@AiChatbotPage).apply {
                         orientation = LinearLayout.HORIZONTAL
                         setPadding(0, 12, 0, 12)
+                        gravity = android.view.Gravity.START
                     }
 
                     val botIcon = ImageView(this@AiChatbotPage).apply {
                         setImageResource(R.drawable.icvet)
-                        layoutParams = LinearLayout.LayoutParams(80, 80)
+                        layoutParams = LinearLayout.LayoutParams(80, 80).apply {
+                            setMargins(12, 0, 12, 0)
+                        }
                     }
 
                     val translationBubble = TextView(this@AiChatbotPage).apply {
-                        text = "🌐 Translate to $languageLabel:\n$translatedReply"
-                        setBackgroundResource(R.drawable.chatbubblebot)
+                        text = "🌐 Translation ($languageLabel):\n$translatedReply"
+                        setBackgroundResource(R.drawable.chatbubble_bot_pawlife)
                         setPadding(24, 16, 24, 16)
                         setTextColor(ContextCompat.getColor(context, android.R.color.black))
                         textSize = 14f
                         layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).apply {
-                            setMargins(20, 0, 20, 0)
+                            setMargins(12, 0, 12, 0)
                         }
                     }
 
-                    horizontalLayout.addView(botIcon)
-                    horizontalLayout.addView(translationBubble)
+                    translationLayout.addView(botIcon)
+                    translationLayout.addView(translationBubble)
 
-                    container.addView(horizontalLayout)
+                    container.addView(translationLayout)
                     scrollView.post { scrollView.fullScroll(ScrollView.FOCUS_DOWN) }
                 }
-
             }
         })
     }
-
-
-
-
+    private fun navigateBackToDashboard() {
+        finish()
+    }
 }

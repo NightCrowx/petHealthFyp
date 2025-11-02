@@ -13,7 +13,20 @@
           "package_name": "utar.edu.my.fyp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "626476538326-egqo17h04s57h48h80e97e4lfbc8nsdr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "utar.edu.my.fyp",
+            "certificate_hash": "bc8aa18c5bc7cc8375fd539aeb47261bb1d4c024"
+          }
+        },
+        {
+          "client_id": "626476538326-0j6j3fjp6icc7d9o080g97o44dvrieda.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB0uOOudJkC4E_j05TsC4iqcc1wU3nSXa4"
@@ -21,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "626476538326-0j6j3fjp6icc7d9o080g97o44dvrieda.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

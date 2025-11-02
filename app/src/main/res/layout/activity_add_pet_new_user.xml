@@ -6,11 +6,11 @@
     <!-- Pet Image -->
     <ImageView
         android:id="@+id/img_pet"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="200dp"
+        android:layout_height="210dp"
         android:src="@drawable/logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="300dp"/>
+        android:layout_marginTop="250dp"/>
 
     <!-- No Pet Text -->
     <TextView

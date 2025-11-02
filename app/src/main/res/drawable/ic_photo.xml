@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+    <!-- frame -->
+    <path android:fillColor="#2196F3"
+        android:pathData="M3,5 H21 V19 H3 Z"/>
+    <!-- sun -->
+    <path android:fillColor="@android:color/white"
+        android:pathData="M17,6 a2,2 0 1,0 0,4 a2,2 0 1,0 0,-4 Z"/>
+    <!-- mountains -->
+    <path android:fillColor="@android:color/white"
+        android:pathData="M5,16 L10,11 L14,16 Z"/>
+    <path android:fillColor="@android:color/white"
+        android:pathData="M11,16 L13.8,13.2 L19,18 H5 Z"/>
+</vector>

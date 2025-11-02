@@ -11,7 +11,18 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
 
 
     <application
@@ -38,9 +49,7 @@
         <activity
             android:name=".AiChatbotPage"
             android:exported="false" />
-        <activity
-            android:name=".RegisterPetProfilePage"
-            android:exported="false" />
+
         <activity
             android:name=".AddPetNewUser"
             android:exported="false" />
@@ -48,17 +57,89 @@
             android:name=".DashboardPage"
             android:exported="false" />
         <activity
+            android:name=".petschedule.ui.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".petschedule.ui.AddAppointmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".petschedule.ui.AddMedicineActivity"
+            android:exported="false" />
+        <activity
+            android:name=".petschedule.ui.AddPetActivity"
+            android:exported="false" />
+        <activity
+            android:name=".petschedule.ui.AddVaccinationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".petschedule.ui.PetDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".petschedule.ui.EditPetActivity"
+            android:exported="false" />
+        <activity
+            android:name=".petschedule.ui.EditMedicineActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".petschedule.ui.EditVaccinationActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".petschedule.ui.EditAppointmentActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".DiagnosisResultPage"
+            android:exported="false" />
+
+        <activity
             android:name=".RegisterPage"
             android:exported="false" />
+
+        <activity
+            android:name=".VaccinationDetailActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".AppointmentDetailActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".MedicineDetailActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".EditUserProfileActivity"
+            android:exported="false" />
+
+
         <activity
             android:name=".MainPage"
             android:exported="true" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name="utar.edu.my.fyp.petschedule.NotificationReceiver"
+            android:exported="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+
     </application>
 
 </manifest>

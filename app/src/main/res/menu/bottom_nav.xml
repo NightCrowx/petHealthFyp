@@ -2,16 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/ichome"
+        android:icon="@drawable/ic_home"
         android:title="Home" />
+
     <item
-        android:id="@+id/nav_chatbot"
-        android:icon="@drawable/icchatbot"
-        android:title="Chatbot" />
+        android:id="@+id/nav_schedule"
+        android:icon="@drawable/ic_schedule"
+        android:title="Pet Management" />
 
     <item
         android:id="@+id/nav_symptom"
-        android:icon="@drawable/icscan"
+        android:icon="@drawable/ic_scan"
         android:title="Scan" />
 
     <item
@@ -20,3 +21,4 @@
         android:title="Navigation" />
 
 </menu>
+
