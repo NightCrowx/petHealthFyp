@@ -104,32 +104,6 @@ class AddPetActivity : AppCompatActivity() {
         }
     }
 
-//    private fun showDatePickerDialog() {
-//        val datePickerDialog = DatePickerDialog(
-//            this,
-//            { _, year, month, dayOfMonth ->
-//                calendar.set(Calendar.YEAR, year)
-//                calendar.set(Calendar.MONTH, month)
-//                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-//
-//                val dateFormat = SimpleDateFormat("dd.MM.yy", Locale.getDefault())
-//                val formattedDate = dateFormat.format(calendar.time)
-//                dateOfBirthEditText.setText(formattedDate)
-//
-//                // Auto-calculate age
-//                calculateAndSetAge()
-//            },
-//            calendar.get(Calendar.YEAR),
-//            calendar.get(Calendar.MONTH),
-//            calendar.get(Calendar.DAY_OF_MONTH)
-//        )
-//
-//        // Set max date to today (can't select future dates)
-//        datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
-//        datePickerDialog.show()
-//    }
-
-
     private fun showDatePickerDialog() {
         val datePickerDialog = DatePickerDialog(
             this,
@@ -154,12 +128,6 @@ class AddPetActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
-//    private fun calculateAndSetAge() {
-//        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-//        val birthYear = calendar.get(Calendar.YEAR)
-//        val age = currentYear - birthYear
-//        ageEditText.setText(age.toString())
-//    }
 
     private fun setupImagePicker() {
         petImageView.setOnClickListener {
@@ -236,50 +204,6 @@ class AddPetActivity : AppCompatActivity() {
         }
     }
 
-//    private fun validateInputs(): Boolean {
-//        val name = petNameEditText.text.toString().trim()
-//        val breed = breedEditText.text.toString().trim()
-//        val ageText = ageEditText.text.toString().trim()
-//        val dateOfBirth = dateOfBirthEditText.text.toString().trim()
-//        val gender = genderAutoComplete.text.toString().trim()
-//        val petType = petTypeAutoComplete.text.toString().trim()
-//
-//        return when {
-//            name.isEmpty() -> {
-//                showError("Please enter pet name")
-//                false
-//            }
-//            breed.isEmpty() -> {
-//                showError("Please enter breed")
-//                false
-//            }
-//            ageText.isEmpty() -> {
-//                showError("Please enter age")
-//                false
-//            }
-//            dateOfBirth.isEmpty() -> {
-//                showError("Please select date of birth")
-//                false
-//            }
-//            gender.isEmpty() -> {
-//                showError("Please select gender")
-//                false
-//            }
-//            petType.isEmpty() -> {
-//                showError("Please select pet type")
-//                false
-//            }
-//            else -> {
-//                val age = ageText.toIntOrNull()
-//                if (age == null || age < 0 || age > 50) {
-//                    showError("Please enter a valid age (0-50)")
-//                    false
-//                } else {
-//                    true
-//                }
-//            }
-//        }
-//    }
 
 
     private fun validateInputs(): Boolean {
@@ -318,48 +242,6 @@ class AddPetActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-//    private fun savePet() {
-//        try {
-//            val name = petNameEditText.text.toString().trim()
-//            val breed = breedEditText.text.toString().trim()
-//            val age = ageEditText.text.toString().trim().toInt()
-//            val gender = genderAutoComplete.text.toString().trim()
-//            val petType = petTypeAutoComplete.text.toString().trim()
-//            val dateOfBirth = dateOfBirthEditText.text.toString().trim()
-//
-//            // GET CURRENT USER ID
-//            val userId = UserSessionManager.getCurrentUserId(this)
-//            if (userId == null) {
-//                Toast.makeText(this, "User not logged in. Please log in again.", Toast.LENGTH_LONG).show()
-//                startActivity(Intent(this, MainPage::class.java))
-//                finish()
-//                return
-//            }
-//
-//            val pet = Pet(
-//                name = name,
-//                breed = breed,
-//                age = age,
-//                gender = gender,
-//                dateOfBirth = dateOfBirth,
-//                petType = petType,
-//                imagePath = imagePath,
-//                userId = userId // Include userId
-//            )
-//
-//            // Save pet to database
-//            petViewModel.insertPet(pet)
-//
-//            Toast.makeText(this, "Pet added successfully!", Toast.LENGTH_SHORT).show()
-//
-//            setResult(RESULT_OK)
-//            finish()
-//
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//            Toast.makeText(this, "Error saving pet: ${e.message}", Toast.LENGTH_LONG).show()
-//        }
-//    }
 
 
     private fun savePet() {
